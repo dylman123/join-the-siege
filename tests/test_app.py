@@ -23,12 +23,12 @@ def test_allowed_file(filename, expected):
     assert allowed_file(filename) == expected
 
 def test_no_file_in_request(client):
-    response = client.post('/classify_file')
+    response = client.post('/classify_files')
     assert response.status_code == 400
 
 def test_no_selected_file(client):
     data = {'file': (BytesIO(b""), '')}  # Empty filename
-    response = client.post('/classify_file', data=data, content_type='multipart/form-data')
+    response = client.post('/classify_files', data=data, content_type='multipart/form-data')
     assert response.status_code == 400
 
 def test_success(client, mocker):
@@ -47,7 +47,7 @@ def test_success(client, mocker):
         ]
     }
     
-    response = client.post('/classify_file', data=data, content_type='multipart/form-data')
+    response = client.post('/classify_files', data=data, content_type='multipart/form-data')
     assert response.status_code == 200
     assert response.get_json() == {
         "results": {

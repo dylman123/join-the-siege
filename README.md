@@ -81,7 +81,7 @@ The API will return appropriate error responses in these cases:
 
 The classifier exposes a single endpoint:
 
-- **URL**: `/classify_file`
+- **URL**: `/classify_files`
 - **Method**: `POST`
 - **Content-Type**: `multipart/form-data`
 - **Parameters**: 
@@ -130,7 +130,7 @@ curl -X POST \
   -F "files=@files/social_security.txt" \
   -F "files=@files/address.txt" \
   -F "files=@files/task_email.eml" \
-  http://localhost:5000/classify_file
+  http://localhost:5000/classify_files
 ```
 
 ##### Using Python Requests
@@ -138,7 +138,7 @@ curl -X POST \
 ```python
 import requests
 
-url = "http://localhost:5000/classify_file"
+url = "http://localhost:5000/classify_files"
 
 # List of files to classify
 files = [

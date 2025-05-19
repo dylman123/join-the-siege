@@ -14,8 +14,8 @@ load_dotenv()
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/classify_file', methods=['POST'])
-def classify_file_route():
+@app.route('/classify_files', methods=['POST'])
+def classify_files_route():
     # Check if any files are in the request
     if 'files' not in request.files:
         return jsonify({"error": "No files part in the request"}), 400
