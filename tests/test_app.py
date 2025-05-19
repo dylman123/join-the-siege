@@ -30,9 +30,23 @@ def test_no_selected_file(client):
     assert response.status_code == 400
 
 def test_success(client, mocker):
-    mocker.patch('src.app.classify_file', return_value='test_class')
+    # Mock the classification function to return different values for different files
+    classify_file_mock = mocker.patch('src.app.classify_file')
+    classify_file_mock.side_effect = lambda file: 'test_class_1' if file.filename == 'file1.pdf' else 'test_class_2'
 
-    data = {'file': (BytesIO(b"dummy content"), 'file.pdf')}
+    # Create multiple files for upload
+    data = {
+        'files': [
+            (BytesIO(b"dummy content 1"), 'file1.pdf'),
+            (BytesIO(b"dummy content 2"), 'file2.pdf')
+        ]
+    }
+    
     response = client.post('/classify_file', data=data, content_type='multipart/form-data')
     assert response.status_code == 200
-    assert response.get_json() == {"file_class": "test_class"}
+    assert response.get_json() == {
+        "results": {
+            "file1.pdf": "test_class_1",
+            "file2.pdf": "test_class_2"
+        }
+    }

@@ -21,7 +21,6 @@ def classify_file_route():
     
     results = {}
     
-    # Handle both single file and multiple files cases
     if 'files' in request.files:
         files = request.files.getlist('files')
         
