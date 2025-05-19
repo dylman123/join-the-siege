@@ -151,3 +151,11 @@ files = [
 response = requests.post(url, files=files)
 print(response.json())
 ```
+
+#### Running the tests
+
+To run the tests, use the following command:
+
+```
+pytest
+```
