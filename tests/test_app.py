@@ -14,7 +14,9 @@ def client():
     ("file.pdf", True),
     ("file.png", True),
     ("file.jpg", True),
-    ("file.txt", False),
+    ("file.txt", True),
+    ("file.eml", True),
+    ("file.mp3", False),
     ("file", False),
 ])
 def test_allowed_file(filename, expected):

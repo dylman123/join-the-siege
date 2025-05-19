@@ -1,7 +1,15 @@
-from typing import Dict, List, Tuple, Callable, Any
+from typing import Dict, List, Tuple
 
 # Common constants
-VALID_CATEGORIES = {"drivers_licence", "bank_statement", "invoice", "unknown file"}
+VALID_CATEGORIES = {
+    "drivers_licence", 
+    "bank_statement", 
+    "invoice",
+    "email",
+    "social_security",
+    "address",
+    "unknown file"
+}
 
 def parse_response(response_text: str, batch: List[Tuple[str, str, str]]) -> Dict[str, str]:
     """

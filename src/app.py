@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from src.classifier import classify_batch
 app = Flask(__name__)
 
-ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg'}
+ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'tiff', 'tif', 'webp', 'eml', 'txt'}
 MAX_FILES = 100  # Maximum number of files allowed in a single request
 BATCH_SIZE = 5   # Number of files to process in a single Anthropic API call
 
