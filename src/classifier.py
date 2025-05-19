@@ -50,7 +50,22 @@ def classify_batch(files: List[FileStorage], batch_size: int = 5) -> Dict[str, s
         else:
             results[file.filename] = "unknown file"
     
-    # Process PDFs in batches
+    # Process files by type
+    pdf_results = classify_pdfs(client, pdf_files, batch_size)
+    image_results = classify_images(client, image_files, batch_size)
+    
+    # Combine results
+    results.update(pdf_results)
+    results.update(image_results)
+    
+    return results
+
+def classify_pdfs(client, pdf_files, batch_size: int = 5) -> Dict[str, str]:
+    """
+    Classify PDF files in batches
+    """
+    results = {}
+    
     for i in range(0, len(pdf_files), batch_size):
         batch = pdf_files[i:i+batch_size]
         if not batch:
@@ -120,8 +135,14 @@ def classify_batch(files: List[FileStorage], batch_size: int = 5) -> Dict[str, s
             for filename, _, _ in batch:
                 results[filename] = f"Error classifying file: {str(e)}"
     
-    # Similarly process image files in batches
-    # (Implementation similar to PDF batching)
+    return results
+
+def classify_images(client, image_files, batch_size: int = 5) -> Dict[str, str]:
+    """
+    Classify image files in batches
+    """
+    results = {}
+    
     for i in range(0, len(image_files), batch_size):
         batch = image_files[i:i+batch_size]
         if not batch:
@@ -192,10 +213,3 @@ def classify_batch(files: List[FileStorage], batch_size: int = 5) -> Dict[str, s
                 results[filename] = f"Error classifying file: {str(e)}"
     
     return results
-
-def classify_file(file: FileStorage):
-    """
-    Classify a single file (maintaining backward compatibility)
-    """
-    results = classify_batch([file])
-    return results.get(file.filename, "Error processing file")
