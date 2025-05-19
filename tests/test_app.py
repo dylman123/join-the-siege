@@ -30,9 +30,12 @@ def test_no_selected_file(client):
     assert response.status_code == 400
 
 def test_success(client, mocker):
-    # Mock the classification function to return different values for different files
-    classify_file_mock = mocker.patch('src.app.classify_file')
-    classify_file_mock.side_effect = lambda file: 'test_class_1' if file.filename == 'file1.pdf' else 'test_class_2'
+    # Mock the batch classification function instead of single file classification
+    classify_batch_mock = mocker.patch('src.app.classify_batch')
+    classify_batch_mock.return_value = {
+        'file1.pdf': 'test_class_1',
+        'file2.pdf': 'test_class_2'
+    }
 
     # Create multiple files for upload
     data = {
