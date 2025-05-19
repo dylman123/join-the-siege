@@ -17,9 +17,10 @@
 - How can you ensure the classifier is robust and reliable in a production environment?
 
 1. _We can write LLM Evals into our test suite to ensure that the classifier is robust and reliable._
-2. _We can allow the API to accept a list of files and process them in batch._
-3. _We can implement a rate limiting layer to ensure that the classifier is not overwhelmed by requests._
-4. _We can implement a logging layer to ensure that the classifier is not overwhelmed by requests._
+2. _We can allow the API to accept a list of files and process them in batch, with a maximum number of files at a time._
+3. _We can limit a maximum file size to ensure that the classifier is not overwhelmed by large files._
+4. _We can implement a rate limiting layer to ensure that the classifier is not overwhelmed by requests._
+5. _We can implement a logging layer to debug any issues that arise in the classifier._
 
 - How can you deploy the classifier to make it accessible to other services and users?
 1. _We can deploy the classifier to a cloud platform such as AWS, GCP, or Azure._
