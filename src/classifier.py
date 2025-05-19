@@ -48,15 +48,7 @@ def classify_batch(files: List[FileStorage], batch_size: int = 5) -> Dict[str, s
         elif mime_type in ['image/jpeg', 'image/png', 'image/gif', 'image/webp']:
             image_files.append((file.filename, mime_type, file_base64))
         else:
-            # Handle non-supported file types directly
-            if "drivers_license" in filename:
-                results[file.filename] = "drivers_licence"
-            elif "bank_statement" in filename:
-                results[file.filename] = "bank_statement"
-            elif "invoice" in filename:
-                results[file.filename] = "invoice"
-            else:
-                results[file.filename] = "unknown file"
+            results[file.filename] = "unknown file"
     
     # Process PDFs in batches
     for i in range(0, len(pdf_files), batch_size):
