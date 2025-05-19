@@ -1,76 +1,30 @@
-# Heron Coding Challenge - File Classifier
-
-## Overview
-
-At Heron, we’re using AI to automate document processing workflows in financial services and beyond. Each day, we handle over 100,000 documents that need to be quickly identified and categorised before we can kick off the automations.
-
-This repository provides a basic endpoint for classifying files by their filenames. However, the current classifier has limitations when it comes to handling poorly named files, processing larger volumes, and adapting to new industries effectively.
-
-**Your task**: improve this classifier by adding features and optimisations to handle (1) poorly named files, (2) scaling to new industries, and (3) processing larger volumes of documents.
-
-This is a real-world challenge that allows you to demonstrate your approach to building innovative and scalable AI solutions. We’re excited to see what you come up with! Feel free to take it in any direction you like, but we suggest:
-
-
 ### Part 1: Enhancing the Classifier
 
 - What are the limitations in the current classifier that's stopping it from scaling?
+_There are a few limitations in the current classifier that's stopping it from scaling:_
+
+_1. The classifier is only able to classify files based on their filenames and not the contents of the file. This is a problem when filenames are not descriptive or not consistent._
+_2. The classifier is limited to the file types that are currently supported. This is a problem when we want to classify files from new industries._
+_3. The classifier can only process one file at a time. This is a problem when we want to classify large volumes of files._
+
 - How might you extend the classifier with additional technologies, capabilities, or features?
+
+_1. We can use a pre-trained model to classify the file contents or we can use a custom model to classify the file contents for specific industries or use cases._
+_2. We can use a multi-modal model to classify the file by combining the text-based name, image/contents of the file, and any metadata that is available._
+_3. We can use a model that is able to understand a long tail of potentially niche file formats for a variety of industries._
 
 
 ### Part 2: Productionising the Classifier 
 
 - How can you ensure the classifier is robust and reliable in a production environment?
+
+_1. We can write LLM Evals into our test suite to ensure that the classifier is robust and reliable._
+_2. We can allow the API to accept a list of files and process them in batch._
+_3. We can implement a rate limiting layer to ensure that the classifier is not overwhelmed by requests._
+_4. We can implement a logging layer to ensure that the classifier is not overwhelmed by requests._
+
 - How can you deploy the classifier to make it accessible to other services and users?
-
-We encourage you to be creative! Feel free to use any libraries, tools, services, models or frameworks of your choice
-
-### Possible Ideas / Suggestions
-- Train a classifier to categorize files based on the text content of a file
-- Generate synthetic data to train the classifier on documents from different industries
-- Detect file type and handle other file formats (e.g., Word, Excel)
-- Set up a CI/CD pipeline for automatic testing and deployment
-- Refactor the codebase to make it more maintainable and scalable
-
-## Marking Criteria
-- **Functionality**: Does the classifier work as expected?
-- **Scalability**: Can the classifier scale to new industries and higher volumes?
-- **Maintainability**: Is the codebase well-structured and easy to maintain?
-- **Creativity**: Are there any innovative or creative solutions to the problem?
-- **Testing**: Are there tests to validate the service's functionality?
-- **Deployment**: Is the classifier ready for deployment in a production environment?
-
-
-## Getting Started
-1. Clone the repository:
-    ```shell
-    git clone <repository_url>
-    cd heron_classifier
-    ```
-
-2. Install dependencies:
-    ```shell
-    python -m venv venv
-    source venv/bin/activate
-    pip install -r requirements.txt
-    ```
-
-3. Run the Flask app:
-    ```shell
-    python -m src.app
-    ```
-
-4. Test the classifier using a tool like curl:
-    ```shell
-    curl -X POST -F 'file=@path_to_pdf.pdf' http://127.0.0.1:5000/classify_file
-    ```
-
-5. Run tests:
-   ```shell
-    pytest
-    ```
-
-## Submission
-
-Please aim to spend 3 hours on this challenge.
-
-Once completed, submit your solution by sharing a link to your forked repository. Please also provide a brief write-up of your ideas, approach, and any instructions needed to run your solution. 
+_1. We can deploy the classifier to a cloud platform such as AWS, GCP, or Azure._
+_2. We can use a serverless architecture to deploy the classifier. eg. AWS API Gateway_
+_3. We can implement an authentication layer with JWT tokens to ensure that only authorized users can access the classifier._
+_4. We can write clear documentation on how to use the classifier, including authentication & rate limit details and how to use the API._
