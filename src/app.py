@@ -1,10 +1,14 @@
 from flask import Flask, request, jsonify
+from dotenv import load_dotenv
 
 from src.classifier import classify_file
 app = Flask(__name__)
 
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg'}
 MAX_FILES = 100  # Maximum number of files allowed in a single request
+
+# Load environment variables
+load_dotenv()
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
