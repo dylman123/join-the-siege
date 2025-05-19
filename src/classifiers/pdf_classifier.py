@@ -1,4 +1,5 @@
-from typing import Dict, List, Tuple
+from typing import Dict
+from .classifier_utils import parse_response, VALID_CATEGORIES
 
 def classify_pdfs(client, pdf_files, batch_size: int = 5) -> Dict[str, str]:
     """
@@ -12,15 +13,14 @@ def classify_pdfs(client, pdf_files, batch_size: int = 5) -> Dict[str, str]:
             continue
             
         try:
-            # Create content for batch request
+            # Create content for batch request with dynamic categories
+            categories_text = "\n    - " + "\n    - ".join(VALID_CATEGORIES)
+            
             content = [
                 {
                     "type": "text",
-                    "text": """Please analyze each file and classify it into one of the following categories:
-                    - drivers_licence
-                    - bank_statement
-                    - invoice
-                    - unknown file
+                    "text": f"""Please analyze each file and classify it into one of the following categories:
+                    {categories_text}
                     
                     For each file, respond with the filename followed by a colon and the category. 
                     Example: file1.pdf: drivers_licence
@@ -50,25 +50,7 @@ def classify_pdfs(client, pdf_files, batch_size: int = 5) -> Dict[str, str]:
             )
             
             # Parse the response to extract classifications for each file
-            response_text = message.content[0].text.strip()
-            lines = response_text.split('\n')
-            
-            for line in lines:
-                if ':' in line:
-                    parts = line.split(':', 1)
-                    filename_part = parts[0].strip()
-                    classification = parts[1].strip().lower()
-                    
-                    # Map to one of our valid categories
-                    valid_categories = {"drivers_licence", "bank_statement", "invoice", "unknown file"}
-                    if classification not in valid_categories:
-                        classification = "unknown file"
-                    
-                    # Find the correct original filename
-                    for original_filename, _, _ in batch:
-                        if original_filename.lower() in filename_part.lower():
-                            results[original_filename] = classification
-                            break
+            results.update(parse_response(message.content[0].text, batch))
             
         except Exception as e:
             # If batch processing fails, add error for all files in batch
